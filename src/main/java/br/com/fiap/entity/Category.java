@@ -1,5 +1,7 @@
 package br.com.fiap.entity;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,6 +18,7 @@ public class Category implements Serializable {
     private Integer id;
 
     @Column(name = "NAME")
+    @NotEmpty(message = "*Please provide a name")
     private String name;
 
     public Category(){}
