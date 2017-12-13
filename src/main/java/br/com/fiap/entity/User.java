@@ -29,6 +29,9 @@ public class User {
     @Column(name = "NAME")
     private String name;
 
+    @Column(name = "active")
+    private boolean active;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private List<Role> roles;
@@ -63,6 +66,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public List<Role> getRoles() {
