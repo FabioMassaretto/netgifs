@@ -32,14 +32,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
+
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(true);
+
+        Role userRole = roleRepository.findByRole("USER");
+        if(user.getRoles() != null) {
+            user.getRoles().add(userRole);
+        } else {
+            user.setRoles(Collections.singletonList(userRole));
+        }
+
         return userRepository.save(user);
     }
 
     @Override
     public User saveAdmin(User user) {
-        Role userRole = roleRepository.findByRole("ADMIN");
+        Role userRole = roleRepository.findByRole("USER");
         user.setRoles(Collections.singletonList(userRole));
         return saveUser(user);
     }
