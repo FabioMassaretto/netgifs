@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by logonrm on 12/12/2017.
@@ -20,6 +21,9 @@ public class Category implements Serializable {
     @Column(name = "NAME")
     @NotEmpty(message = "*Please provide a name")
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "category")
+    private List<Gif> gifs;
 
     public Category(){}
 
@@ -45,5 +49,13 @@ public class Category implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Gif> getGifs() {
+        return gifs;
+    }
+
+    public void setGifs(List<Gif> gifs) {
+        this.gifs = gifs;
     }
 }
