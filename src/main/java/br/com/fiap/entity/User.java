@@ -36,6 +36,10 @@ public class User {
     @JoinTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private List<Role> roles;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "USER_FAVORITE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "GIF_ID"))
+    private List<Gif> favorites;
+
     public Integer getId() {
         return id;
     }
