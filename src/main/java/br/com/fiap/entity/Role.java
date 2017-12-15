@@ -20,6 +20,12 @@ public class Role {
     @NotEmpty(message = "*Please provide a role")
     private String role;
 
+    public Role(){}
+
+    public Role(String role) {
+        this.role = role;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 /**
@@ -44,6 +45,25 @@ public class UserServiceImpl implements UserService {
         }
 
         return userRepository.save(user);
+    }
+
+    public void startRoles() {
+
+        Role userRole = roleRepository.findByRole("USER");
+        Role userRoleAdm = roleRepository.findByRole("ADMIN");
+
+        if(userRole != null && userRoleAdm != null){
+            return;
+        }
+
+        if(userRole == null && userRoleAdm == null){
+            roleRepository.save(Arrays.asList(new Role("ADMIN"), new Role("USER")));
+        } else if (userRole == null) {
+            roleRepository.save(new Role("USER"));
+        } else {
+            new Role("USER");
+        }
+
     }
 
     @Override

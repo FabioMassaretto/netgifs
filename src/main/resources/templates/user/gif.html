@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <title>NetGifx</title>
+</head>
+<body>
+
+    <div>
+        <ul class="list-group">
+            <li class="list-group-item" th:each="file : ${files}">
+                <img th:src="${file}"/>
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
