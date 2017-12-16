@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,8 +65,14 @@ public class LoginController {
     @RequestMapping(value = "/admin/home", method = RequestMethod.GET)
     public ModelAndView admin(@AuthenticationPrincipal User user) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("user", new User());
-        modelAndView.setViewName("/admin/home");
+        modelAndView.setViewName("admin/home");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/access-denied", method = RequestMethod.GET)
+    public ModelAndView accessDenied() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("access-denied");
         return modelAndView;
     }
 
