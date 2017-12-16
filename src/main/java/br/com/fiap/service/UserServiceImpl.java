@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by logonrm on 12/12/2017.
@@ -56,12 +57,19 @@ public class UserServiceImpl implements UserService {
             return;
         }
 
-        if(userRole == null && userRoleAdm == null){
-            roleRepository.save(Arrays.asList(new Role("ADMIN"), new Role("USER")));
-        } else if (userRole == null) {
-            roleRepository.save(new Role("USER"));
-        } else {
-            new Role("USER");
+        if(userRoleAdm == null){
+            userRoleAdm = roleRepository.save(new Role("ADMIN"));
+        }
+
+        if (userRole == null) {
+           userRole = roleRepository.save(new Role("USER"));
+        }
+
+        List<User> users = userRepository.findByRole(userRoleAdm);
+
+        if(users == null || users.isEmpty()){
+            userRepository.save(
+                    new User("admin", "admin", "admin", true, Arrays.asList(userRole, userRoleAdm)));
         }
 
     }

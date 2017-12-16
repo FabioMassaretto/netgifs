@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/grid-gifs.css}" />
     <title>NetGifx</title>
 </head>
 <body>
 
     <div>
-        <ul class="list-group">
-            <li class="list-group-item" th:each="file : ${files}">
-                <img th:src="${file}"/>
+        <ul class="list-group" th:each="category : ${categories}">
+            <li class="list-group-item col-lg-3 col-md-4 col-xs-6" th:each="gif : ${category.gifs}">
+                <img th:src="${gif.url}"/>
             </li>
         </ul>
     </div>

@@ -40,6 +40,16 @@ public class User {
     @JoinTable(name = "USER_FAVORITE", joinColumns = @JoinColumn(name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "GIF_ID"))
     private List<Gif> favorites;
 
+    public User(){}
+
+    public User(String email, String password, String name, boolean active, List<Role> roles) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.active = active;
+        this.roles = roles;
+    }
+
     public Integer getId() {
         return id;
     }

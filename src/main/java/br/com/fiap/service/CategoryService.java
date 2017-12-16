@@ -14,4 +14,6 @@ public interface CategoryService {
 
     Category save(Category category);
 
+    List<Category> findAllWithGifs();
+
 }

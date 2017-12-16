@@ -1,5 +1,8 @@
 package br.com.fiap.controller;
 
+import br.com.fiap.controller.response.CategoryVO;
+import br.com.fiap.controller.response.GifVO;
+import br.com.fiap.entity.Category;
 import br.com.fiap.entity.Gif;
 import br.com.fiap.service.CategoryService;
 import br.com.fiap.service.GifService;
@@ -15,8 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import java.io.IOException;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class GifController {
@@ -42,10 +45,24 @@ public class GifController {
     @RequestMapping(value={"/user/gif"}, method = RequestMethod.GET)
     public ModelAndView listUploadedFiles() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("files", storageService.loadAll().map(
-                path -> MvcUriComponentsBuilder.fromMethodName(GifController.class,
-                        "serveFile", path.getFileName().toString()).build().toString())
-                .collect(Collectors.toList()));
+
+        List<Category> categories = categoryService.findAllWithGifs();
+
+        List<CategoryVO> listCategory = new ArrayList<>();
+
+        categories.forEach(category -> {
+
+            CategoryVO vo = new CategoryVO(category.getName());
+
+            category.getGifs().forEach(gif ->
+                vo.getGifs().add(new GifVO(MvcUriComponentsBuilder.fromMethodName(GifController.class,
+                        "serveFile", gif.getPath()).build().toString()))
+            );
+
+            listCategory.add(vo);
+        });
+
+        modelAndView.addObject("categories", listCategory);
         modelAndView.setViewName("user/gif");
         return modelAndView;
     }
