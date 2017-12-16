@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
            userRole = roleRepository.save(new Role("USER"));
         }
 
-        List<User> users = userRepository.findByRole(userRoleAdm);
+        List<User> users = userRepository.findByRoles(userRoleAdm);
 
         if(users == null || users.isEmpty()){
             userRepository.save(
