@@ -4,6 +4,7 @@ import br.com.fiap.entity.User;
 import br.com.fiap.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -51,7 +52,7 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
-            userService.saveAdmin(user);
+            userService.saveUser(user);
             modelAndView.addObject("successMessage", "Registrado com sucesso");
             modelAndView.addObject("user", new User());
             modelAndView.setViewName("registration");
@@ -60,14 +61,11 @@ public class LoginController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/admin/home", method = RequestMethod.GET)
-    public ModelAndView home(){
+    @RequestMapping(value = "/admin/home", method = RequestMethod.GET)
+    public ModelAndView admin(@AuthenticationPrincipal User user) {
         ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Bem vindo(a) " + user.getName() + " " + " (" + user.getEmail() + ")");
-        modelAndView.addObject("adminMessage", "Apenas os ADMINs conseguem ver essa página");
-        modelAndView.setViewName("admin/home");
+        modelAndView.addObject("user", new User());
+        modelAndView.setViewName("/admin/home");
         return modelAndView;
     }
 

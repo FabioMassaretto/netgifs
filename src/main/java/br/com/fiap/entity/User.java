@@ -19,11 +19,11 @@ public class User {
     private Integer id;
 
     @Column(name = "EMAIL")
-    @Email(message = "*Please provide a valid Email")
+    @Email(message = "*Informe um e-mail válido")
     private String email;
 
     @Column(name = "PASSWORD")
-    @NotEmpty(message = "*Please provide your password")
+    @NotEmpty(message = "*Informe uma senha")
     private String password;
 
     @Column(name = "NAME")
@@ -97,4 +97,5 @@ public class User {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
 }

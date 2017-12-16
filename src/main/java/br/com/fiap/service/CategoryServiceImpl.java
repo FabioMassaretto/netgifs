@@ -28,9 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> findAllWithGifs() {
         List<Category> categories = categoryRepository.findAll();
-        for(Category category: categories) {
-            Hibernate.initialize(category.getGifs());
-        }
+        categories.forEach(category -> Hibernate.initialize(category.getGifs()));
         return categories;
     }
 

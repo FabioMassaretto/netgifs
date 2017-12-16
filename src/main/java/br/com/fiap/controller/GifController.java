@@ -4,6 +4,7 @@ import br.com.fiap.controller.response.CategoryVO;
 import br.com.fiap.controller.response.GifVO;
 import br.com.fiap.entity.Category;
 import br.com.fiap.entity.Gif;
+import br.com.fiap.entity.User;
 import br.com.fiap.service.CategoryService;
 import br.com.fiap.service.GifService;
 import br.com.fiap.service.StorageService;
@@ -12,6 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,14 +51,14 @@ public class GifController {
     public ModelAndView listUploadedFiles() {
         ModelAndView modelAndView = new ModelAndView();
 
-        List<Category> categories = categoryService.findAllWithGifs();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        modelAndView.addObject("isAdmin", authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN")));
 
+        List<Category> categories = categoryService.findAllWithGifs();
         List<CategoryVO> listCategory = new ArrayList<>();
 
         categories.forEach(category -> {
-
             CategoryVO vo = new CategoryVO(category.getName());
-
             category.getGifs().forEach(gif ->
                 vo.getGifs().add(new GifVO(MvcUriComponentsBuilder.fromMethodName(GifController.class,
                         "serveFile", gif.getPath()).build().toString()))
