@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +83,7 @@ public class GifController {
     }
 
     @RequestMapping(value={"/admin/gif"}, method = RequestMethod.POST)
-    public ModelAndView save(@RequestParam("file") MultipartFile file, Gif gif){
+    public ModelAndView save(@RequestParam("file") MultipartFile file, @Valid Gif gif){
 
         gif.setPath(storageService.store(file, gif.getName()));
         gifService.save(gif);

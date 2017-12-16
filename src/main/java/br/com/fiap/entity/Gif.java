@@ -17,6 +17,15 @@ public class Gif {
     @Column(name = "NAME")
     private String name;
 
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @Column(name = "ETA_RATING")
+    private Integer etaRating;
+
+    @Column(name = "LANGUAGE")
+    private String language;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
@@ -51,5 +60,29 @@ public class Gif {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getEtaRating() {
+        return etaRating;
+    }
+
+    public void setEtaRating(Integer etaRating) {
+        this.etaRating = etaRating;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

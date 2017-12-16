@@ -8,17 +8,23 @@
     <title>NetGifx</title>
 </head>
 <body>
+    <div class="container">
+        <div th:each="category : ${categories}">
+            <div class="row">
+                <div class = "col-sm-9 col-md-6">
+                    <label th:text="${category.name}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class = "col-sm-9 col-md-6" th:each="gif : ${category.gifs}">
+                    <img th:src="${gif.url}"/>
+                </div>
+            </div>
+        </div>
 
-    <div>
-        <ul class="list-group" th:each="category : ${categories}">
-            <li class="list-group-item col-lg-3 col-md-4 col-xs-6" th:each="gif : ${category.gifs}">
-                <img th:src="${gif.url}"/>
-            </li>
-        </ul>
-    </div>
-
-    <div th:if="${isAdmin}">
-        <a href="/netgifs/admin/home">Gerenciador</a>
+        <div class="row" th:if="${isAdmin}">
+            <a href="/netgifs/admin/home">Gerenciador</a>
+        </div>
     </div>
 
 </body>
