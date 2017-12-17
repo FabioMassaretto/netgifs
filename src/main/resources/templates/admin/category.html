@@ -4,21 +4,64 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/js/common.js}"></script>
     <title>Gerenciar Gifs</title>
 </head>
 <body>
 
-<form th:action="@{/admin/category}" method="POST" enctype="multipart/form-data" th:object="${category}">
-
-    <div class="form-group">
-        <input type="text" class="form-control" name="name" id="name" th:field="*{name}" th:placeholder="name"/>
+<nav class="navbar navbar-fixed-top color-white">
+    <div>
+        <div class="navbar-header">
+            <a class="navbar-brand cor" href="/netgifs/user/gif"><img class="netgifx-img" th:src="@{/images/netgifx.png}" /> </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="align-right nav">
+                <li class="dropdown align-right">
+                    <a class="dropdown-toggle cor" style="margin-top:3px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="cor" href="#">Favoritos</a>
+                        </li>
+                        <li>
+                            <a class="cor" onclick="logout()" >Logout</a>
+                        </li>
+                        <li>
+                            <a class="cor" href="/netgifs/admin/home">Administrador</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
     </div>
+</nav>
+<div class="center">
+    <div class="outer">
+        <div class="middle">
+            <div class="inner">
+                <fieldset>
+                    <legend style="color:white;">Cadastro de Categorias:</legend>
+                    <form th:action="@{/admin/category}" method="POST" enctype="multipart/form-data" th:object="${category}">
 
-    <div class="form-group">
-        <input type="submit" />
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="name" id="name" th:field="*{name}" placeholder="Nome da Categoria"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="btn btn-danger btn-block" type="submit" />
+                        </div>
+                    </form>
+                </fieldset>
+            </div>
+        </div>
     </div>
-</form>
-
+</div>
 
 </body>
 </html>

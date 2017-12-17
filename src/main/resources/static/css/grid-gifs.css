@@ -2,8 +2,111 @@ body {
     padding-top: 54px;
 }
 
+.layout-gifs {
+    width: 200px;
+    margin-left: 30px;
+    float:left;
+    text-align:center;
+    cursor:pointer;
+}
+
 @media (min-width: 992px) {
     body {
         padding-top: 56px;
+    }
+}
+
+.outer {
+    background-color: black;
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.color-white {
+    background-color: white;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.align-right {
+    float: right;
+    margin-right: 50px;
+}
+
+.cor{
+    color: red;
+}
+
+.netgifx-img {
+    width: 100px !important;
+    margin-left: 20px !important;
+    height: 30px !important;
+    margin-top: -5px !important;
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    padding: 8px;
+    text-decoration: none;
+    font-size: 18px;
+    color:white;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 24px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+.gif-height {
+        height: 400px;
+}
+
+@media(max-width: 1440px){
+    .gif-height {
+        height: 350px;
     }
 }

@@ -5,27 +5,68 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/grid-gifs.css}" />
+    <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <script th:src="@{/js/gif.js}"></script>
+    <script th:src="@{/js/common.js}"></script>
     <title>NetGifx</title>
 </head>
 <body>
-    <div class="container">
-        <div th:each="category : ${categories}">
-            <div class="row">
-                <div class = "col-sm-9 col-md-6">
-                    <label th:text="${category.name}"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class = "col-sm-9 col-md-6" th:each="gif : ${category.gifs}">
-                    <img th:src="${gif.url}"/>
-                </div>
-            </div>
+<nav class="navbar navbar-fixed-top color-white">
+    <div>
+        <div class="navbar-header">
+            <a class="navbar-brand cor" href="/netgifs/user/gif"><img class="netgifx-img" th:src="@{/images/netgifx.png}" /> </a>
         </div>
-
-        <div class="row" th:if="${isAdmin}">
-            <a href="/netgifs/admin/home">Gerenciador</a>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="align-right nav">
+                <li class="dropdown align-right">
+                    <a class="dropdown-toggle cor" style="margin-top:3px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="cor" href="#">Favoritos</a>
+                        </li>
+                        <li>
+                            <a class="cor" onclick="logout()" >Logout</a>
+                        </li>
+                        <li th:if="${isAdmin}">
+                            <a class="cor" href="/netgifs/admin/home">Administrador</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+<div class="outer">
+    <div class="inner">
+        <div class="container">
+            <div th:each="category : ${categories}">
+                <div class="row" style="margin-top: 5px;">
+                    <div class = "cor">
+                        <label th:text="${category.name}"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class = "layout-gifs" th:each="gif : ${category.gifs}">
+                        <img onclick="visualizarGif(this)" style="max-height: 200px;" th:alt="${gif.description}" th:title="${gif.name}" th:src="${gif.url}"/>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+
+<div id="myNav" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div id="show-gif" class="overlay-content">
+
+    </div>
+</div>
+
 
 </body>
 </html>

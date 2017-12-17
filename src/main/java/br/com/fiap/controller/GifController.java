@@ -62,7 +62,7 @@ public class GifController {
             CategoryVO vo = new CategoryVO(category.getName());
             category.getGifs().forEach(gif ->
                 vo.getGifs().add(new GifVO(MvcUriComponentsBuilder.fromMethodName(GifController.class,
-                        "serveFile", gif.getPath()).build().toString()))
+                        "serveFile", gif.getPath()).build().toString(), gif.getName().toString(), gif.getDescription().toString()))
             );
 
             listCategory.add(vo);
