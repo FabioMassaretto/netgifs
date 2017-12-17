@@ -53,10 +53,6 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByRole("USER");
         Role userRoleAdm = roleRepository.findByRole("ADMIN");
 
-        if(userRole != null && userRoleAdm != null){
-            return;
-        }
-
         if(userRoleAdm == null){
             userRoleAdm = roleRepository.save(new Role("ADMIN"));
         }
