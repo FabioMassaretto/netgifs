@@ -19,8 +19,8 @@
             <a class="navbar-brand cor" href="/netgifs/user/gif"><img class="netgifx-img" th:src="@{/images/netgifx.png}" /> </a>
         </div>
         <div class="navbar-header nav">
-            <form action="user/gif/search" method="post">
-                <input id="gifName" name="gifName"></input>
+            <form th:action="@{/user/gif/search}" method="POST" th:object="${searchRequest}">
+                <input type="text" id="gifName" name="gifName" th:field="*{gifName}"/>
                 <button type="submit">Buscar</button>
             </form>
         </div>

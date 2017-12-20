@@ -19,25 +19,25 @@
             <a class="navbar-brand cor" href="/netgifs/user/gif"><img class="netgifx-img" th:src="@{/images/netgifx.png}" /> </a>
         </div>
         <div class="navbar-header nav">
-            <form action="user/gif/search" method="post">
-                <input id="gifName" name="gifName"></input>
+            <form th:action="@{/user/gif/search}" method="POST" th:object="${searchRequest}">
+                <input type="text" id="gifName" name="gifName" th:field="*{gifName}"/>
                 <button type="submit">Buscar</button>
             </form>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="align-right nav">
                 <li class="dropdown align-right">
-                    <a class="dropdown-toggle cor" style="margin-top:3px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário
-                        <span class="caret"></span>
+                    <a class="dropdown-toggle cor" style="margin-top:3px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret" th:text="${session.user.name}"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="cor" href="#">Favoritos</a>
+                            <a class="cor" href="/netgifs/user/favorite">Favoritos</a>
                         </li>
                         <li>
                             <a class="cor" onclick="logout()" >Logout</a>
                         </li>
-                        <li th:if="${isAdmin}">
+                        <li th:if="${session.isAdmin}">
                             <a class="cor" href="/netgifs/admin/home">Administrador</a>
                         </li>
                     </ul>

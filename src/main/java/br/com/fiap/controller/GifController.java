@@ -69,21 +69,23 @@ public class GifController {
 
         modelAndView.addObject("categories", listCategory);
         modelAndView.setViewName("user/gif");
+        modelAndView.addObject("searchRequest", new SearchRequest());
         return modelAndView;
     }
 
     @RequestMapping(value = {"/user/gif/search"}, method = RequestMethod.POST)
-    public ModelAndView findGifsByName(@RequestBody final SearchRequest searchRequest) {
+    public ModelAndView findGifsByName(SearchRequest searchRequest) {
         ModelAndView modelAndView = new ModelAndView();
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        modelAndView.addObject("isAdmin", authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN")));
+        if(searchRequest.getGifName() == null || searchRequest.getGifName().isEmpty()){
+            modelAndView.setViewName("redirect:/user/gif");
+            return modelAndView;
+        }
 
         final List<Gif> gifs = gifService.findByNameContaining(searchRequest.getGifName());
 
-
         List<GifVO> gifVOList = gifs.stream().map(gif -> new GifVO(MvcUriComponentsBuilder.fromMethodName(GifController.class,
-                "serveFile", gif.getPath()).build().toString(), gif.getName().toString(), gif.getDescription().toString())).collect(Collectors.toList());
+                "serveFile", gif.getPath()).build().toString(), gif.getName(), gif.getDescription())).collect(Collectors.toList());
 
         modelAndView.addObject("gifs", gifVOList);
         modelAndView.setViewName("user/gif_search");
