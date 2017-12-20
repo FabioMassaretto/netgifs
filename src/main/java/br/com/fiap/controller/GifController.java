@@ -1,5 +1,6 @@
 package br.com.fiap.controller;
 
+import br.com.fiap.controller.request.SearchRequest;
 import br.com.fiap.controller.response.CategoryVO;
 import br.com.fiap.controller.response.GifVO;
 import br.com.fiap.entity.Category;
@@ -28,6 +29,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class GifController {
@@ -90,6 +92,24 @@ public class GifController {
 
         modelAndView.addObject("categories", listCategory);
         modelAndView.setViewName("user/gif");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = {"/user/gif/search"}, method = RequestMethod.POST)
+    public ModelAndView findGifsByName(@RequestBody final SearchRequest searchRequest) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        modelAndView.addObject("isAdmin", authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN")));
+
+        final List<Gif> gifs = gifService.findByNameContaining(searchRequest.getGifName());
+
+
+        List<GifVO> gifVOList = gifs.stream().map(gif -> new GifVO(MvcUriComponentsBuilder.fromMethodName(GifController.class,
+                "serveFile", gif.getPath()).build().toString(), gif.getName().toString(), gif.getDescription().toString())).collect(Collectors.toList());
+
+        modelAndView.addObject("gifs", gifVOList);
+        modelAndView.setViewName("user/gif_search");
         return modelAndView;
     }
 

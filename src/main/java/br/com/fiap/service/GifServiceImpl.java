@@ -46,11 +46,6 @@ public class GifServiceImpl implements GifService {
     }
 
     @Override
-    public List<Gif> findGifByNameContaning(String name) {
-        return gifRepository.findByNameContaining(name);
-    }
-
-    @Override
     @Transactional
     public void saveGifToFavorite(GifVO gifVO, String emailLogged) {
         Gif gif = gifRepository.findByName(gifVO.getName());
@@ -81,4 +76,8 @@ public class GifServiceImpl implements GifService {
 
     }
 
+    @Override
+    public List<Gif> findByNameContaining(String gifName) {
+        return gifRepository.findByNameContaining(gifName);
+    }
 }

@@ -16,8 +16,7 @@ public interface GifService {
 
     void saveGifToFavorite(GifVO gifVO, String emailLogged);
 
-    List<Gif> findGifByNameContaning(String name);
-
     void removeGifToFavorite(GifVO gifVO, String emailLogged);
 
+    List<Gif> findByNameContaining(String gifName);
 }
