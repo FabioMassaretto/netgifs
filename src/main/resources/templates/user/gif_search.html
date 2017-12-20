@@ -50,16 +50,9 @@
 <div class="outer">
     <div class="inner">
         <div class="container">
-            <div th:each="category : ${categories}">
-                <div class="row" style="margin-top: 5px;">
-                    <div class = "cor">
-                        <label th:text="${category.name}"/>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class = "layout-gifs" th:each="gif : ${category.gifs}">
-                        <img onclick="visualizarGif(this)" style="max-height: 200px;" th:alt="${gif.description}" th:title="${gif.name}" th:src="${gif.url}"/>
-                    </div>
+            <div class="row">
+                <div class = "layout-gifs" th:each="gif : ${gifs}">
+                    <img onclick="visualizarGif(this)" style="max-height: 200px;" th:alt="${gif.description}" th:title="${gif.name}" th:src="${gif.url}"/>
                 </div>
             </div>
         </div>

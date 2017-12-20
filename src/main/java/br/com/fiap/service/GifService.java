@@ -13,4 +13,5 @@ public interface GifService {
 
     List<Gif> findGifByCategory(Category category);
 
+    List<Gif> findByNameContaining(String gifName);
 }

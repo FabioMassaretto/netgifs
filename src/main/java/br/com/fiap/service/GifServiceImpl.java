@@ -36,4 +36,8 @@ public class GifServiceImpl implements GifService {
         return gifRepository.findByCategory(category);
     }
 
+    @Override
+    public List<Gif> findByNameContaining(String gifName) {
+        return gifRepository.findByNameContaining(gifName);
+    }
 }
