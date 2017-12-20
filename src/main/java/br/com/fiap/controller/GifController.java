@@ -9,14 +9,12 @@ import br.com.fiap.entity.User;
 import br.com.fiap.service.CategoryService;
 import br.com.fiap.service.GifService;
 import br.com.fiap.service.StorageService;
-import br.com.fiap.service.UserService;
 import br.com.fiap.storage.StorageFileNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -43,9 +41,6 @@ public class GifController {
     @Autowired
     private GifService gifService;
 
-    @Autowired
-    private UserService userService;
-
     @RequestMapping(value={"/admin/gif"}, method = RequestMethod.GET)
     public ModelAndView register(){
         ModelAndView modelAndView = new ModelAndView();
@@ -58,24 +53,6 @@ public class GifController {
     @RequestMapping(value={"/user/gif"}, method = RequestMethod.GET)
     public ModelAndView listUploadedFiles(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if(session.getAttribute("user") == null) {
-            User user = userService.findUserByEmail(authentication.getName());
-            session.setAttribute("user", user);
-            session.setAttribute("isAdmin", authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN")));
-
-            if(user.getFavorites() != null && !user.getFavorites().isEmpty()){
-                List<GifVO> gifVOS = new ArrayList<>();
-                user.getFavorites().forEach(favorite -> {
-                    gifVOS.add(new GifVO(MvcUriComponentsBuilder.fromMethodName(GifController.class,
-                            "serveFile", favorite.getPath()).build().toString(), favorite.getName(), favorite.getDescription()));
-                });
-                session.setAttribute("favorites", gifVOS);
-            }
-
-        }
 
         List<Category> categories = categoryService.findAllWithGifs();
         List<CategoryVO> listCategory = new ArrayList<>();

@@ -34,9 +34,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User findUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
-//        Hibernate.initialize(user.getFavorites());
+        Hibernate.initialize(user.getFavorites());
         return user;
     }
 
