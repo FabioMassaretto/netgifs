@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .defaultSuccessUrl("/user/gif")
             .usernameParameter("email")
             .passwordParameter("password")
-            .and().logout()
+            .and().logout().invalidateHttpSession(true)
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
             .logoutSuccessUrl("/").and().exceptionHandling()
             .accessDeniedPage("/access-denied");
