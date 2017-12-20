@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
 
         if(users == null || users.isEmpty()){
             userRepository.save(
-                    new User("admin", "admin", "admin", true, Arrays.asList(userRole, userRoleAdm)));
+                    new User("admin@admin.com", "admin", "admin", true, Arrays.asList(userRole, userRoleAdm)));
         }
 
     }
