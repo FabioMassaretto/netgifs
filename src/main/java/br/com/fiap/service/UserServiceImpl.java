@@ -4,6 +4,7 @@ import br.com.fiap.entity.Role;
 import br.com.fiap.entity.User;
 import br.com.fiap.repository.RoleRepository;
 import br.com.fiap.repository.UserRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+        User user = userRepository.findByEmail(email);
+        Hibernate.initialize(user.getFavorites());
+        return user;
     }
 
     @Override
@@ -64,8 +67,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userRepository.findByRoles(userRoleAdm);
 
         if(users == null || users.isEmpty()){
-            userRepository.save(
-                    new User("admin@admin.com", "admin", "admin", true, Arrays.asList(userRole, userRoleAdm)));
+            saveAdmin(new User("admin@admin.com", "admin", "admin", true, null));
         }
 
     }
