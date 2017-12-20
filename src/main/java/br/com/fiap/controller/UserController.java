@@ -19,7 +19,7 @@ import javax.validation.Valid;
  * Created by logonrm on 12/12/2017.
  */
 @Controller
-public class LoginController {
+public class UserController {
 
     @Autowired
     private UserService userService;
@@ -59,6 +59,23 @@ public class LoginController {
             modelAndView.setViewName("registration");
 
         }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/admin/user", method = RequestMethod.GET)
+    public ModelAndView initAdminUser() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("user", new User());
+        modelAndView.addObject("users", userService.listAll());
+        modelAndView.setViewName("admin/user");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/admin/user", method = RequestMethod.POST)
+    public ModelAndView giveAdminPrevileges(User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        userService.giveAdminPrevileges(user);
+        modelAndView.setViewName("admin/home");
         return modelAndView;
     }
 

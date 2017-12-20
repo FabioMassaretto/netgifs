@@ -53,12 +53,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/user/**").hasAuthority("USER").anyRequest()
             .authenticated().and().csrf().disable().formLogin()
             .loginPage("/login").failureUrl("/login?error=true")
-            .defaultSuccessUrl("/user/gif")
-            .usernameParameter("email")
-            .passwordParameter("password")
-            .and().logout().invalidateHttpSession(true)
-            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-            .logoutSuccessUrl("/").and().exceptionHandling()
+                .defaultSuccessUrl("/user/gif")
+                .usernameParameter("email")
+                .passwordParameter("password")
+            .and().logout()
+                .invalidateHttpSession(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/").and().exceptionHandling()
             .accessDeniedPage("/access-denied");
     }
 

@@ -1,6 +1,7 @@
 package br.com.fiap.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "GIF")
@@ -84,5 +85,20 @@ public class Gif {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Gif gif = (Gif) o;
+        return Objects.equals(id, gif.id) &&
+                Objects.equals(name, gif.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id, name);
     }
 }

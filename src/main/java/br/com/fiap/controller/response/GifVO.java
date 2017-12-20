@@ -1,5 +1,7 @@
 package br.com.fiap.controller.response;
 
+import java.util.Objects;
+
 public class GifVO {
 
     private String url;
@@ -9,6 +11,10 @@ public class GifVO {
     private String description;
 
     public GifVO(String url, String name, String description ) { this.url = url; this.name = name; this.description = description; }
+
+    public GifVO(String name) {
+        this.name = name;
+    }
 
     public String getUrl() {
         return url;
@@ -25,4 +31,18 @@ public class GifVO {
     public String getDescription() { return description; }
 
     public void setDescription(String description) { this.description = description; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GifVO gifVO = (GifVO) o;
+        return Objects.equals(name, gifVO.name);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name);
+    }
 }

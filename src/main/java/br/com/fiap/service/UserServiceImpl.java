@@ -8,8 +8,8 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,6 +27,11 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Override
+    public List<User> listAll(){
+        return userRepository.findAll();
+    }
 
     @Override
     public User findUserByEmail(String email) {
@@ -61,7 +66,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if (userRole == null) {
-           userRole = roleRepository.save(new Role("USER"));
+           roleRepository.save(new Role("USER"));
         }
 
         List<User> users = userRepository.findByRoles(userRoleAdm);
@@ -74,9 +79,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveAdmin(User user) {
-        Role userRole = roleRepository.findByRole("USER");
+        Role userRole = roleRepository.findByRole("ADMIN");
         user.setRoles(Collections.singletonList(userRole));
         return saveUser(user);
+    }
+
+    @Override
+    @Transactional
+    public void giveAdminPrevileges(User user) {
+        User userBD = userRepository.findOne(user.getId());
+        userBD.getRoles().add(roleRepository.findByRole("ADMIN"));
+        userRepository.save(userBD);
     }
 
 }

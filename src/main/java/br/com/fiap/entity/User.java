@@ -98,4 +98,11 @@ public class User {
         this.roles = roles;
     }
 
+    public List<Gif> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<Gif> favorites) {
+        this.favorites = favorites;
+    }
 }

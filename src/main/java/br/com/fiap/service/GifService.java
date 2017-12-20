@@ -1,5 +1,6 @@
 package br.com.fiap.service;
 
+import br.com.fiap.controller.response.GifVO;
 import br.com.fiap.entity.Category;
 import br.com.fiap.entity.Gif;
 
@@ -12,5 +13,11 @@ public interface GifService {
     Gif save(Gif gif);
 
     List<Gif> findGifByCategory(Category category);
+
+    void saveGifToFavorite(GifVO gifVO, String emailLogged);
+
+    List<Gif> findGifByNameContaning(String name);
+
+    void removeGifToFavorite(GifVO gifVO, String emailLogged);
 
 }

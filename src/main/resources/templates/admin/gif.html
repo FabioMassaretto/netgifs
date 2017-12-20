@@ -20,12 +20,12 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="align-right nav">
                 <li class="dropdown align-right">
-                    <a class="dropdown-toggle cor" style="margin-top:3px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuário
-                        <span class="caret"></span>
+                    <a class="dropdown-toggle cor" style="margin-top:3px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret" th:text="${session.user.name}"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="cor" href="#">Favoritos</a>
+                            <a class="cor" href="/netgifs/user/favorite">Favoritos</a>
                         </li>
                         <li>
                             <a class="cor" onclick="logout()" >Logout</a>

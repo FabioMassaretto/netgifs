@@ -14,4 +14,6 @@ public interface GifRepository extends JpaRepository<Gif, Integer> {
 
     List<Gif> findByNameContaining(String name);
 
+    Gif findByName(String name);
+
 }
